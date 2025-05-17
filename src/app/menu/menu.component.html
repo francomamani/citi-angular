@@ -1,0 +1,12 @@
+<header class="menu">
+  <section class="menu__container">
+    <img src="https://th.bing.com/th/id/OIP.dtmTWjphaNVkUXwacuhc6wHaHa?cb=iwp2&rs=1&pid=ImgDetMain" alt="" class="menu__logo">
+    <section class="menu__list">
+      <a class="menu__item"
+         [class.menu__item--selected]="menuItem === menuItemSelected"
+         *ngFor="let menuItem of menuItems" (click)="selectMenuItem(menuItem)">
+        {{ menuItem.name }}
+      </a>
+    </section>
+  </section>
+</header>
