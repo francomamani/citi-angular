@@ -1,6 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import { Gallery } from '../interfaces/gallery.interface';
 import {CommonModule} from '@angular/common';
+import {GalleryService} from '../services/gallery.service';
 
 @Component({
   selector: 'citi-gallery',
@@ -8,6 +9,28 @@ import {CommonModule} from '@angular/common';
   templateUrl: './gallery.component.html',
   styleUrl: './gallery.component.scss'
 })
-export class GalleryComponent {
+export class GalleryComponent implements OnInit {
   @Input() galleryList: Gallery[] = [];
+  @Output() onGalleryDelete: EventEmitter<string> = new EventEmitter<string>();
+
+  public galleryService: GalleryService = inject(GalleryService);
+
+  public ngOnInit(): void {
+    this.galleryService.newGalleryRemoved$
+      .subscribe((gallery: Gallery) => {
+        this.removeGallery(gallery.id)
+      })
+  }
+
+  public delete(id: string | undefined): void {
+    if (id) {
+      this.onGalleryDelete.emit(id);
+    }
+  }
+
+  public removeGallery(id: string | undefined): void {
+    if (id) {
+      this.galleryList = this.galleryList.filter((gallery: Gallery): boolean => gallery.id !== id);
+    }
+  }
 }
