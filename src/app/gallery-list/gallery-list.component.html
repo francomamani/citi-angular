@@ -1,0 +1,6 @@
+<section class="flex flex-row justify-center">
+<!--  <citi-gallery [galleryList]="(galleryList$ | async) || []" class="gallery__wrapper"></citi-gallery>-->
+  <citi-gallery [galleryList]="(galleryListFake$ | async) || []"
+                (onGalleryDelete)="removeGallery($event)"
+                class="gallery__wrapper"></citi-gallery>
+</section>

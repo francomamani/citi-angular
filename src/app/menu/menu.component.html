@@ -4,6 +4,7 @@
     <section class="menu__list">
       <a class="menu__item"
          [class.menu__item--selected]="menuItem === menuItemSelected"
+         [routerLink]="menuItem.route"
          *ngFor="let menuItem of menuItems" (click)="selectMenuItem(menuItem)">
         {{ menuItem.name }}
       </a>

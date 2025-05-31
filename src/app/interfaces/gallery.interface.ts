@@ -3,4 +3,5 @@ export interface Gallery {
   title: string;
   description: string;
   price: number; // Integer, Decimal
+  id?: string;
 }

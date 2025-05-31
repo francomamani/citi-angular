@@ -1,23 +1,42 @@
-import {Component} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MenuComponent} from './menu/menu.component';
-import {GalleryComponent} from './gallery/gallery.component';
-import {Gallery} from './interfaces/gallery.interface';
 import {MenuItem} from './interfaces/menu-item.interface';
-
+import {RouterOutlet} from '@angular/router';
+/*
+* map: itera entre elementos escuchados
+*   1 2 3
+* map(1,2,3) -> transformacion map(x => x*2)
+* map(2,4,9)
+*
+* filter: basada en una condicion devuelve elementos que cumplen
+* filter(1,2,3) -> transformacion filter((x) => x > 2)
+* filter(3)
+*
+* tap: muestra el estado actual de los elementos escuchados
+* tap(1, 2, 3) -> no existe transformacion
+* tap(1, 2, 3)
+*
+* delay: aplica una espera en ms para ejecutar las operaciones dentro del pipe
+*
+* pipe: nos sirve para usar operadores rxjs
+*
+* TakeUntil: permite escuchar datos hasta un evento especifico.
+* */
 @Component({
   selector: 'citi-root',
   imports: [
     MenuComponent,
-    GalleryComponent
+    RouterOutlet
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'citi';
 
   public menuItems: MenuItem[] = [
     { name: 'Home', route: '/' },
+    { name: 'New Gallery', route: '/new-gallery' },
     { name: 'About', route: '/about' },
     { name: 'Menu', route: '/menu' },
     { name: 'Gallery', route: '/gallery' },
@@ -26,55 +45,15 @@ export class AppComponent {
 
   public menuItemSelected: MenuItem | null = this.menuItems[0];
 
-  public galleryList: Gallery[] = [
-    {
-      productImage: 'https://www.veggirlrd.com/wp-content/uploads/2016/07/Salt-and-pepper-tofu.jpg',
-      title: 'Citi Oruro Bolivia 2025',
-      description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p><p class="mt-1">another description here</p>',
-      price: 100.30
-    },
-    {
-      productImage: 'https://i.pinimg.com/originals/a7/34/a5/a734a583465613fbec7ef3bcf6e269e1.jpg',
-      title: 'Citi Oruro Bolivia 2025',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 200.20
-    },
-    {
-      productImage: 'https://66.media.tumblr.com/tumblr_lt1fs99LFs1r4o3p2o1_1280.jpg',
-      title: 'Citi Oruro Bolivia 2025',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 300.50
-    },
-    {
-      productImage: 'https://th.bing.com/th/id/OIP.qa--rbC4nS_pkDmabUzh-gHaGN?cb=iwp2&w=940&h=788&rs=1&pid=ImgDetMain',
-      title: 'Citi Oruro Bolivia 2025',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 99.99
-    },
-    {
-      productImage: 'https://www.veggirlrd.com/wp-content/uploads/2016/07/Salt-and-pepper-tofu.jpg',
-      title: 'Citi Oruro Bolivia 2025',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 100.30
-    },
-    {
-      productImage: 'https://i.pinimg.com/originals/a7/34/a5/a734a583465613fbec7ef3bcf6e269e1.jpg',
-      title: 'Citi Oruro Bolivia 2025',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 200.20
-    },
-    {
-      productImage: 'https://66.media.tumblr.com/tumblr_lt1fs99LFs1r4o3p2o1_1280.jpg',
-      title: 'Citi Oruro Bolivia 2025',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 300.50
-    },
-    {
-      productImage: 'https://th.bing.com/th/id/OIP.qa--rbC4nS_pkDmabUzh-gHaGN?cb=iwp2&w=940&h=788&rs=1&pid=ImgDetMain',
-      title: 'Citi Oruro Bolivia 2025',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      price: 99.99
-    }
-  ];
+
+  public ngOnInit(): void {
+      // .subscribe((gallery: Gallery): void => {
+      //   this.galleryList.push(gallery);
+      // });
+  }
+
+
+
+
 
 }

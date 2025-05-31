@@ -1,11 +1,13 @@
 import {Component, Input} from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { MenuItem } from '../interfaces/menu-item.interface';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'citi-menu',
   imports: [
-      CommonModule
+    CommonModule,
+    RouterLink
   ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'

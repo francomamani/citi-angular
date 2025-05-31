@@ -1,0 +1,23 @@
+<section class="bg-gray-100 w-full h-screen flex flex-col items-center">
+  <form [formGroup]="galleryForm" (submit)="saveGallery()"
+        class="bg-gray-200 flex flex-col gap-4 my-8 p-8 w-1/2 rounded">
+    <legend>New Gallery</legend>
+    <section class="flex flex-col gap-2">
+      <label for="title">Title</label>
+      <input class="border border-gray-500" id="title" type="text" formControlName="title" required>
+    </section>
+    <section class="flex flex-col gap-2">
+      <label for="price">Price</label>
+      <input class="border border-gray-500" id="price" type="number" step="2" formControlName="price" required>
+    </section>
+    <section class="flex flex-col gap-2">
+      <label for="description">description</label>
+      <textarea class="border border-gray-500" id="description" formControlName="description" required></textarea>
+    </section>
+    <section class="flex flex-col gap-2">
+      <label for="productImage">Product Image</label>
+      <input class="border border-gray-500" id="productImage" type="url" formControlName="productImage" required>
+    </section>
+    <button class="py-4 px-8 rounded bg-blue-600 text-white cursor-pointer"  type="submit">Guardar</button>
+  </form>
+</section>
