@@ -9,7 +9,19 @@ export const routes: Routes = [
   },
   {
     path: 'new-gallery',
-    component: GalleryFormComponent
+    component: GalleryFormComponent,
+    data: {
+      title: 'New Gallery',
+      action: 'save'
+    }
+  },
+  {
+    path: 'edit-gallery/:id',
+    component: GalleryFormComponent,
+    data: {
+      title: 'Edit Gallery',
+      action: 'update'
+    }
   },
   {
     path: '**',

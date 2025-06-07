@@ -1,5 +1,10 @@
-<section class="flex flex-row justify-center">
+<section class="flex flex-col items-center">
 <!--  <citi-gallery [galleryList]="(galleryList$ | async) || []" class="gallery__wrapper"></citi-gallery>-->
+  
+  <section class="w-full maxWidth1200px m-4 px-4">
+    <citi-searcher (onSearch)="searchGallery($event)"></citi-searcher>
+  </section>
+
   <citi-gallery [galleryList]="(galleryListFake$ | async) || []"
                 (onGalleryDelete)="removeGallery($event)"
                 class="gallery__wrapper"></citi-gallery>

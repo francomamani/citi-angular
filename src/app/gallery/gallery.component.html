@@ -2,7 +2,8 @@
   <article class="gallery__item flex flex-col" *ngFor="let galleryItem of galleryList">
     <section class="relative w-full">
       <img [src]="galleryItem.productImage" [alt]="galleryItem.title" class="gallery__productImage w-full h-60 rounded-xl">
-      <button (click)="delete(galleryItem.id)" class="absolute text-sm top-2 right-2 w-6 h-6 bg-white text-black rounded-full cursor-pointer">X</button>
+      <button (click)="delete(galleryItem.id)" class="absolute text-sm top-2 right-2 w-6 h-6 bg-white text-black rounded-full cursor-pointer hover:bg-red-300">X</button>
+      <button (click)="edit(galleryItem.id)" class="absolute top-10 right-2 bg-white size-6  rounded-full cursor-pointer flex flex-col items-center justify-center hover:bg-orange-300"><img src="images/pen-solid.svg" alt="Edit" class="size-3"></button>
     </section>
     <div class="gallery__info flex flex-row justify-between font-semibold mt-4 mb-2 text-sm">
       <h2 class="gallery__title uppercase tracking-wide">{{ galleryItem.title }}</h2>

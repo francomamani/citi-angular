@@ -4,21 +4,21 @@ import {Gallery} from '../interfaces/gallery.interface';
 import {GalleryService} from '../services/gallery.service';
 import {GalleryComponent} from '../gallery/gallery.component';
 import {AsyncPipe} from '@angular/common';
+import {SearcherComponent} from '../searcher/searcher.component';
 
 @Component({
   selector: 'citi-gallery-list',
   imports: [
     GalleryComponent,
-    AsyncPipe
+    AsyncPipe,
+    SearcherComponent
   ],
   templateUrl: './gallery-list.component.html',
   styleUrl: './gallery-list.component.scss'
 })
 export class GalleryListComponent implements OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
-
   public galleryList: Gallery[] = [];
-
   public galleryService: GalleryService = inject(GalleryService);
 
   public galleryList$: Observable<Gallery[]> = this.galleryService.getList()
@@ -43,13 +43,24 @@ export class GalleryListComponent implements OnDestroy {
       })
     );
 
-
   public removeGallery(id: string) {
     this.galleryService.destroyFake(id)
       .subscribe((removedGallery: Gallery) => {
         console.log('removeGallery', removedGallery);
         this.galleryService.newGalleryRemoved$.next(removedGallery);
       })
+  }
+
+  public searchGallery(searchTerm: string): void {
+    this.galleryListFake$ = this.galleryService.getListFake()
+    .pipe(
+      map((galleryList: Gallery[]) => {
+        return galleryList.filter((gallery: Gallery) =>  
+          gallery.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+          gallery.description.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      })
+    ); 
   }
 
   public ngOnDestroy(): void {

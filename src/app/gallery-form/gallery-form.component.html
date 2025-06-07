@@ -1,23 +1,52 @@
-<section class="bg-gray-100 w-full h-screen flex flex-col items-center">
-  <form [formGroup]="galleryForm" (submit)="saveGallery()"
-        class="bg-gray-200 flex flex-col gap-4 my-8 p-8 w-1/2 rounded">
-    <legend>New Gallery</legend>
-    <section class="flex flex-col gap-2">
-      <label for="title">Title</label>
-      <input class="border border-gray-500" id="title" type="text" formControlName="title" required>
-    </section>
-    <section class="flex flex-col gap-2">
-      <label for="price">Price</label>
-      <input class="border border-gray-500" id="price" type="number" step="2" formControlName="price" required>
-    </section>
-    <section class="flex flex-col gap-2">
-      <label for="description">description</label>
-      <textarea class="border border-gray-500" id="description" formControlName="description" required></textarea>
-    </section>
-    <section class="flex flex-col gap-2">
-      <label for="productImage">Product Image</label>
-      <input class="border border-gray-500" id="productImage" type="url" formControlName="productImage" required>
-    </section>
-    <button class="py-4 px-8 rounded bg-blue-600 text-white cursor-pointer"  type="submit">Guardar</button>
-  </form>
+<section class="galleryForm__wrapper w-full flex justify-center">
+  <section class="galleryForm__container w-full maxWidth1200px p-4 flex flex-col gap-4 lg:flex-row lg:justify-center lg:gap-16 lg:mt-8">
+    <ng-container *ngIf="action === Action.save || !galleryForm.value.productImage">
+      <img class="w-full lg:w-1/2" src="https://media.istockphoto.com/id/1434437996/photo/woman-hand-writing-on-clipboard-with-a-pen.jpg?s=612x612&w=0&k=20&c=IaDtgURkVQ4Onq9WV04kCp1rzjYj1GPUatE0mTOYc-A=" alt="Form">
+    </ng-container>
+    <ng-container *ngIf="action === Action.update && galleryForm.value.productImage">
+      <img class="max-w-md h-120" [src]="galleryForm.value.productImage" alt="Form">
+    </ng-container>
+
+    <form [formGroup]="galleryForm" (submit)="submit()" 
+    class="galleryForm__form w-full flex flex-col gap-4 justify-end lg:w-1/2">
+      <legend class="text-2xl font-bold w-full text-center">{{ title }}</legend>
+      <section class="flex flex-col gap-2">
+        <label class="font-bold text-gray-600 text-sm" for="title">Title<span class="text-red-600">*</span></label>
+        <input class="text-gray-600 border border-2 rounded-md border-gray-400 bg-gray-100 p-2" id="title" type="text" formControlName="title" autocomplete="off" required
+        [ngClass]="{'border-red-600': galleryForm.controls['title'].invalid && galleryForm.controls['title'].touched}">
+        <ng-container *ngIf="galleryForm.controls['title'].invalid && galleryForm.controls['title'].touched">
+          <p class="text-red-600 text-sm">El título debe tener entre 3 y 50 caracteres y empezar con mayúscula</p>
+        </ng-container>
+      </section>
+      <section class="flex flex-col gap-2">
+        <label class="font-bold text-gray-600 text-sm" for="price">Price<span class="text-red-600">*</span></label>
+        <input class="text-gray-600 border border-2 rounded-md border-gray-400 bg-gray-100 p-2" id="price" type="number" step="2" formControlName="price" autocomplete="off" required
+        [ngClass]="{'border-red-600': galleryForm.controls['price'].invalid && galleryForm.controls['price'].dirty}">
+        <ng-container *ngIf="galleryForm.controls['price'].invalid && galleryForm.controls['price'].touched">
+          <p class="text-red-600 text-sm">El precio debe ser mayor a 10 y menor a 2500</p>
+        </ng-container>
+      </section>
+      <section class="flex flex-col gap-2">
+        <label class="font-bold text-gray-600 text-sm" for="description">Description</label>
+        <textarea class="text-gray-600 border border-2 rounded-md border-gray-400 bg-gray-100 p-2" id="description" formControlName="description" autocomplete="off" 
+        [ngClass]="{'border-red-600': galleryForm.controls['description'].invalid && galleryForm.controls['description'].touched}">
+        </textarea>
+        <ng-container *ngIf="galleryForm.controls['description'].invalid && galleryForm.controls['description'].touched">
+          <p class="text-red-600 text-sm">La descripción debe tener entre 2 y 100 caracteres y contener "image" o "imagen" al inicio</p>
+        </ng-container>
+      </section>
+      <section class="flex flex-col gap-2">
+        <label class="font-bold text-gray-600 text-sm" for="productImage">Product Image<span class="text-red-600">*</span></label>
+        <input class="text-gray-600 border border-2 rounded-md border-gray-400 bg-gray-100 p-2" id="productImage" type="url" formControlName="productImage" autocomplete="off"
+        [ngClass]="{'border-red-600': galleryForm.controls['productImage'].invalid && galleryForm.controls['productImage'].touched}"
+        >
+        <ng-container *ngIf="galleryForm.controls['productImage'].invalid && galleryForm.controls['productImage'].touched">
+          <p class="text-red-600 text-sm">La imagen debe ser una URL válida</p>
+        </ng-container>
+      </section>
+      <button class="galleryForm__button p-2 rounded bg-blue-600 text-white cursor-pointer disabled:text-gray-800 disabled:border disabled:border-gray-400" type="submit" [disabled]="galleryForm.invalid">Guardar</button>
+      Formulario inválido: {{ galleryForm.invalid | json }} <br>
+      Errores description: {{ galleryForm.controls['description'].errors| json }} <br>
+      </form>
+  </section>  
 </section>

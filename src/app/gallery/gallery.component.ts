@@ -2,6 +2,7 @@ import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/c
 import { Gallery } from '../interfaces/gallery.interface';
 import {CommonModule} from '@angular/common';
 import {GalleryService} from '../services/gallery.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'citi-gallery',
@@ -14,6 +15,7 @@ export class GalleryComponent implements OnInit {
   @Output() onGalleryDelete: EventEmitter<string> = new EventEmitter<string>();
 
   public galleryService: GalleryService = inject(GalleryService);
+  public router: Router = inject(Router);
 
   public ngOnInit(): void {
     this.galleryService.newGalleryRemoved$
@@ -32,5 +34,10 @@ export class GalleryComponent implements OnInit {
     if (id) {
       this.galleryList = this.galleryList.filter((gallery: Gallery): boolean => gallery.id !== id);
     }
+  }
+
+  public edit(id: string | undefined): void {
+    if (!id) return;
+    this.router.navigate(['/edit-gallery', id]);
   }
 }

@@ -79,8 +79,16 @@ export class GalleryService {
     return this.http.get<Gallery[]>('https://683b18e443bb370a8674ba9d.mockapi.io/api/v1/gallery');
   }
 
+  public getFake(id: string): Observable<Gallery> {
+    return this.http.get<Gallery>(`https://683b18e443bb370a8674ba9d.mockapi.io/api/v1/gallery/${id}`);
+  }
+
   public postFake(gallery: Gallery): Observable<Gallery> {
     return this.http.post<Gallery>('https://683b18e443bb370a8674ba9d.mockapi.io/api/v1/gallery', gallery);
+  }
+
+  public updateFake(gallery: Gallery): Observable<Gallery> {
+    return this.http.put<Gallery>(`https://683b18e443bb370a8674ba9d.mockapi.io/api/v1/gallery/${gallery.id}`, gallery);
   }
 
   public destroyFake(id: string): Observable<Gallery> {
